@@ -1,0 +1,25 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME}.php -f
+	RewriteRule ^(.*)$ $1.php
+</IfModule>
+
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteRule ^prabayar/detail/([a-zA-Z0-9._]+)$/?$ ./order/history/detail-prabayar.php?id=$1 [QSA,L]
+RewriteRule ^sosmed/detail/([a-zA-Z0-9._]+)$/?$ ./order/history/detail-sosmed.php?id=$1 [QSA,L]
+RewriteRule ^pembelian/berhasil/([a-zA-Z0-9._]+)$/?$ ./order/history/thank-you.php?id=$1 [QSA,L]
+RewriteRule ^prabayar/confirm-prepaid/([a-zA-Z0-9._]+)/([a-zA-Z0-9._]+)$/?$ ./beli/confirm-prepaid.php?service=$1&phone=$2 [QSA,L]
+RewriteRule ^halaman/informasi/([a-zA-Z0-9._]+)$/?$ ./pages/banner?id=$1 [QSA,L]
+
+RewriteRule ^reset/password/([a-zA-Z0-9._]+)/([a-zA-Z0-9._]+)$/?$ ./auth/verifikasi_2.php?code=$1&validasi=$2 [QSA,L]
+
+RewriteRule ^user/hapus/([a-zA-Z0-9._]+)$/?$ ./admin/user/lib/delete.php?id=$1 [QSA,L]
+RewriteRule ^user/ubah/([a-zA-Z0-9._]+)$/?$ ./admin/user/lib/edit.php?id=$1 [QSA,L]
+
+<FilesMatch "\.(php4|php5|php3|php2|php|phtml)$">
+ SetHandler application/x-httpd-alt-php71___lsphp
+</FilesMatch>
